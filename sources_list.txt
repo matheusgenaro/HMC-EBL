@@ -1,0 +1,5 @@
+data/src4245_spectrum_20bin.txt
+data/src1771_spectrum_20bin.txt
+data/src1022_spectrum_new.txt
+data/src6447_spectrum_new.txt
+data/src2232_spectrum_20bin.txt
