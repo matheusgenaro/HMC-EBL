@@ -13,7 +13,7 @@ import numpy as np
   -> sources_model (string list): List of intrinsic models. Supported: PL, LP, PLC;
   -> init_file (string): Name of initial positions file;
   -> inv_mass (string): Name of inverse mass matrix file;
-  -> main_folder (string): 
+
 
 '''
 
