@@ -7,7 +7,7 @@ A sample of 12 synthetic BL Lac spectra is supplied.
 In 'chains' folder, there are also the effective samples from the analysis of IACT data by Genaro et al. (2023, in prep).
 
 ## Required Python packages
-numpy
+numpy;
 scipy
 
 ## Usage
