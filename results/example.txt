@@ -1,0 +1,18 @@
+/chains/5Sources_Nrun100000_af0.995.dat
+
+#--------- Simulation Info ---------#
+Number of sources: 5
+Sources: 4245
+1771
+1022
+6447
+2232
+Data File: data/src4245_spectrum_20bin.txt
+data/src1771_spectrum_20bin.txt
+data/src1022_spectrum_new.txt
+data/src6447_spectrum_new.txt
+data/src2232_spectrum_20bin.txt
+Model: PL PL PL PL PL 
+Number of Steps: 100000
+Acceptance Fraction: 0.995
+Simulation date/time: 03/08/2023 19:34:36
