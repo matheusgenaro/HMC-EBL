@@ -396,7 +396,7 @@ def print_results_hmc(file_chain, af, source_model, name, source_file, Nrun, mai
 
    # File to save results
     n = len(main_folder)+len('/chains/')
-    results_file = open(main_folder+'/results/'+file_chain[n+1:-4]+'.txt','w')
+    results_file = open(main_folder+'/results/'+file_chain[n:-4]+'.txt','w')
     results_file.write(file_chain+'\n') 
     
    # Write results
@@ -422,10 +422,10 @@ def print_results_hmc(file_chain, af, source_model, name, source_file, Nrun, mai
         
     results_file.close()
     
-    print('Results saved as '+'results/'+file_chain[n+1:-4]+'.txt')
+    print('Results saved as '+'results/'+file_chain[n:-4]+'.txt')
 
    # Copy File to recent result
-    shutil.copyfile(main_folder+'/results/'+file_chain[n+1:-4]+'.txt', r'recent_result.txt')
+    shutil.copyfile(main_folder+'/results/'+file_chain[n:-4]+'.txt', r'recent_result.txt')
 
     return
 
