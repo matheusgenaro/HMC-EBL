@@ -59,9 +59,6 @@ def run_hmc(Nrun, N, eps, source_model, init_file, inv_mass):
         chain.write(str(q0[j])+'  ')
     chain.write('\n') 
     
-    ##
-    q, p = forest_ruth_save(q0, p0, eps, N, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_model, inv_mass_)
-    ##
     af = 0
     for i in range(Nrun):
         p0_copy = np.copy(p0)
@@ -178,12 +175,6 @@ def partial_U_frac(q, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_m
             N0 = q[2+i+j]
             gamma = q[2+i+j+1]
             flux_intr = N0*np.power(E[i]/E0,-gamma,dtype=np.longdouble)
-            #if np.any(np.isinf(flux_intr)):
-            #    print(i)
-            #    print(gamma)
-            #    print(N0)
-            #    print(q)
-#            flux_intr = N0*(E[i]/E0)**(-gamma)
             j += 1
         elif source_model[i] == 'LP':
             N0 = q[2+i+j]
@@ -219,7 +210,6 @@ def partial_U_PL(frac_pah, frac_sg, params, E, flux, sigma, tauStar, tauSG, tauL
     N0 = params[0]
     gamma = params[1]
     f_mod = np.power(E/E0,-gamma,dtype=np.longdouble)*np.exp(-tau, dtype = np.longdouble)
-    #f_mod = (E/E0)**(-gamma)*np.exp(-tau)
     
     grad_N0 = np.sum(((N0*f_mod-flux)/sigma)*(f_mod/sigma))
     grad_gamma = np.sum(((N0*f_mod - flux)/sigma)*(-np.log(E/E0)*N0*f_mod/sigma))
@@ -263,7 +253,6 @@ def partial_U_PLC(frac_pah, frac_sg, params, E, z, flux, sigma, tauStar, tauSG, 
     gamma = params[1]
     Ecut = params[2]/(1+z)
     f_mod = (E/E0)**(-gamma)*np.exp(-E/Ecut, dtype=np.longdouble)*np.exp(-tau)
-#    f_mod = (E/E0)**(-gamma)*np.exp(-E/Ecut)*np.exp(-tau)
 
     grad_N0 = np.sum((N0*f_mod-flux)*f_mod/sigma**2)  
     grad_gamma = np.sum((N0*f_mod - flux)*(-np.log(E/E0)*N0*f_mod)/sigma**2)
@@ -337,34 +326,6 @@ def forest_ruth(q, p, eps, N, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, 
     return q, p
 
 #--------------------------------------------------------------------
-# Forest-Ruth algorithm for Hamiltonian evolution.
-
-def forest_ruth_save(q, p, eps, N, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_model, inv_mass):
-    q_file = open('forestruth_q_steps_eps'+str(eps)+'_N'+str(N)+'.txt','w')
-    p_file = open('forestruth_p_steps_eps'+str(eps)+'_N'+str(N)+'.txt','w')
-    for i in range(N):
-        for j in range(len(q)):
-            q_file.write(str(q[j])+'  ')
-            p_file.write(str(p[j])+'  ')
-        q_file.write('\n')
-        p_file.write('\n')
-        evol_coord(q, p, eps, inv_mass, 0.5/(2-2**(1/3)))
-        evol_momenta(q, p, eps, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_model, 1/(2-2**(1/3)))
-        evol_coord(q, p, eps, inv_mass, 0.5/(2-2**(1/3)))
-
-        evol_coord(q, p, eps, inv_mass, -0.5*(2**(1/3)/(2-2**(1/3))))
-        evol_momenta(q, p, eps, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_model, -(2**(1/3)/(2-2**(1/3))))
-        evol_coord(q, p, eps, inv_mass, -0.5*(2**(1/3)/(2-2**(1/3))))
-        
-        evol_coord(q, p, eps, inv_mass, 0.5/(2-2**(1/3)))
-        evol_momenta(q, p, eps, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_model, 1/(2-2**(1/3)))
-        evol_coord(q, p, eps, inv_mass, 0.5/(2-2**(1/3)))
-    q_file.close()
-    p_file.close()
-    return q, p
-
-
-#--------------------------------------------------------------------
 # Acceptance criteria
 def accept_criteria(q0, p0, q, p, inv_mass, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_model, af):
     if np.any(q[26:-1] < 0):
@@ -376,14 +337,7 @@ def accept_criteria(q0, p0, q, p, inv_mass, E, z, flux, sigma, tauStar, tauSG, t
     p_old = Potential(q0, E, z, flux, sigma, tauStar, tauSG, tauLG, tauPAH, source_model)
     new = k_new + p_new           
     old = k_old + p_old
-    #print('New')
-    #print(k_new)
-    #print(p_new)
-    #print('Old')
-    #print(k_old)
-    #print(p_old)
     prob = np.exp(-(new - old))
-    #print(prob)
     alfa = np.random.uniform()
     if alfa < prob:
         return q, p, af
