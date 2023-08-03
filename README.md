@@ -4,7 +4,7 @@ The EBL model adopted is the one by Finke et al. (2010), considering the dust fr
 The intrinsic spectra of the sources can be described by three parametrizations: power law (PL), log-parabola (LP) and power law with exponential cut-off (PLC).
 
 A sample of 12 synthetic BL Lac spectra is supplied. 
-In 'chains' folder, there are also the effective samples from the analysis of IACT data by Genaro et al. (2023, in prep).
+In the 'chains' folder, there are also the effective samples from the analysis of IACT data by Genaro et al. (2023, in prep).
 
 ## Required Python packages
 numpy;
