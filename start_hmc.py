@@ -17,15 +17,14 @@ import numpy as np
 
 '''
 
-Nrun = 100000
+Nrun = 1000
 N = 50       
-eps = 1e-3#8e-4  
+eps = 1e-3 
 
 source_model = ['PL', 'PL', 'PL', 'PL','PL']
 
-init_file = 'initialization2.dat'
-inv_mass = 'invmass_matrix3.dat'
-#main_folder = 
+init_file = 'initialization.dat'
+inv_mass = 'invmass_matrix.dat'
 
 
 #-------------------------------------------------------
